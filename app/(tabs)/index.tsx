@@ -1,30 +1,13 @@
 import { Link } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text>Home screen.</Text>
-      <Link href="/about" style={styles.link}>
+    <View className="flex-1 justify-center items-center">
+      <Text className="text-3xl font-bold underline">Home screen.</Text>
+      <Link href="/about" className="text-blue-500 text-2xl">
         About
       </Link>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  link: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "blue",
-  },
-});
