@@ -23,13 +23,21 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 //     </View>
 //   );
 // }
-export function Button({ label, theme }: { label: string; theme?: string }) {
+export function Button({
+  label,
+  theme,
+  onPress,
+}: {
+  label: string;
+  theme?: string;
+  onPress?: () => void;
+}) {
   if (theme === "primary") {
     return (
       <View className="mx-5 w-80 h-16 justify-center p-[3px] items-center border-4 border-[#ffd33d] rounded-[18px]">
         <Pressable
           className="w-full h-full rounded-lg flex-row items-center justify-center bg-white"
-          onPress={() => alert("Button pressed")}
+          onPress={onPress}
         >
           <FontAwesome
             name="picture-o"
@@ -46,9 +54,7 @@ export function Button({ label, theme }: { label: string; theme?: string }) {
       <View className="flex-1 mx-5 w-80 h-16 justify-center p-3 items-center">
         <Pressable
           className="w-full h-full rounded-lg flex items-center justify-center"
-          onPress={() => {
-            alert("Button pressed");
-          }}
+          onPress={onPress}
         >
           <Text className="text-white">{label}</Text>
         </Pressable>
