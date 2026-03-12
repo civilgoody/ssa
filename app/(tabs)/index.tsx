@@ -1,16 +1,23 @@
 import { Button } from "@/components/button";
 import { ImageViewer } from "@/components/image-viewer";
-import { View } from "react-native";
+import { ImageSourcePropType, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import IconButton from "@/components/icon-button";
 import { CircleButton } from "@/components/circle-button";
+import EmojiPicker from "@/components/emoji-picker";
+import EmojiList from "@/components/emoji-list";
+import EmojiSticker from "@/components/emoji-sticker";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
 export default function Index() {
   const [selectedImg, setSelectedImg] = useState<string | undefined>(undefined);
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
+  const [pickedEmoji, setPickedEmoji] = useState<
+    ImageSourcePropType | undefined
+  >(undefined);
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -29,6 +36,7 @@ export default function Index() {
   };
 
   const onAddSticker = () => {
+    setShowModal(true);
     // we will implement this later
   };
 
@@ -39,6 +47,9 @@ export default function Index() {
     <View className="flex-1 bg-[#25292e] items-center">
       <View className="flex-1 pt-7">
         <ImageViewer src={PlaceholderImage} selectedImg={selectedImg} />
+        {pickedEmoji && (
+          <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />
+        )}
       </View>
       {showAppOptions ? (
         <View className="absolute bottom-20">
@@ -65,6 +76,12 @@ export default function Index() {
           />
         </View>
       )}
+      <EmojiPicker isVisible={showModal} onClose={() => setShowModal(false)}>
+        <EmojiList
+          onSelect={setPickedEmoji}
+          onCloseModal={() => setShowModal(false)}
+        />
+      </EmojiPicker>
     </View>
   );
 }
